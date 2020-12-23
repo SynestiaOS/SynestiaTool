@@ -14,17 +14,20 @@ SOURCES += \
     aboutdialog.cpp \
     main.cpp \
     osmonitor.cpp \
+    serialtool.cpp \
     synestiatool.cpp
 
 HEADERS += \
     SerialPortReader.h \
     aboutdialog.h \
     osmonitor.h \
+    serialtool.h \
     synestiatool.h
 
 FORMS += \
     aboutdialog.ui \
     osmonitor.ui \
+    serialtool.ui \
     synestiatool.ui
 
 TRANSLATIONS += \
