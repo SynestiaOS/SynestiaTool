@@ -68,7 +68,14 @@ void SynestiaTool::initSerialPorts()
 {
     QStringList serials;
     for(int i = 0;i<this->serialList.size();i++){
-        serials.push_back(this->serialList.at(i).portName());
+        QString po;
+        if(this->serialList.at(i).isBusy()){
+            po.append("[Busy] ");
+        }else{
+            po.append("[Free] ");
+        }
+        po.append(this->serialList.at(i).portName());
+        serials.push_back(po);
     }
 
     ui->serialPorts->clear();
@@ -100,6 +107,11 @@ void SynestiaTool::on_serialPorts_activated(int index)
     this->ui->selectedSerialPort->setText(selectedInfo.portName());
     this->serialPort.setPortName(selectedInfo.portName());
 
+    this->ui->serialName->setText(selectedInfo.portName());
+    this->ui->desc->setText(selectedInfo.description());
+    this->ui->manfactor->setText(selectedInfo.manufacturer());
+    this->ui->serialNumber->setText(selectedInfo.serialNumber());
+
     this->ui->serialCheckBox->setCheckState(Qt::CheckState::Checked);
 }
 
@@ -111,7 +123,7 @@ void SynestiaTool::on_connectionConnectBtn_clicked()
 
 
     if (!this->serialPort.open(QIODevice::ReadOnly)) {
-        this->ui->recvViewer->setHtml("<span style=\"color:'red'\">Failed to open port!</span>");
+        this->ui->recvViewer->setHtml("<p style=\"color:'red'\">Failed to open port!</p>");
     }else{
         this->ui->connectionConnectBtn->setEnabled(false);
         this->ui->connectionCloseBtn->setEnabled(true);
@@ -238,3 +250,4 @@ void SynestiaTool::on_actionAbout_triggered()
 {
     this->aboutDialog.show();
 }
+
