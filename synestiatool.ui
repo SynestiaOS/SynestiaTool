@@ -292,16 +292,6 @@
            <property name="title">
             <string>Send</string>
            </property>
-           <widget class="QLineEdit" name="commandText">
-            <property name="geometry">
-             <rect>
-              <x>50</x>
-              <y>30</y>
-              <width>321</width>
-              <height>21</height>
-             </rect>
-            </property>
-           </widget>
            <widget class="QLabel" name="label_6">
             <property name="geometry">
              <rect>
@@ -318,14 +308,24 @@
            <widget class="QPushButton" name="commandSendBtn">
             <property name="geometry">
              <rect>
-              <x>240</x>
-              <y>80</y>
+              <x>250</x>
+              <y>100</y>
               <width>113</width>
               <height>32</height>
              </rect>
             </property>
             <property name="text">
              <string>发送</string>
+            </property>
+           </widget>
+           <widget class="QPlainTextEdit" name="plainTextEdit">
+            <property name="geometry">
+             <rect>
+              <x>50</x>
+              <y>30</y>
+              <width>311</width>
+              <height>61</height>
+             </rect>
             </property>
            </widget>
           </widget>
@@ -371,6 +371,55 @@
     </layout>
    </widget>
   </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>工具</string>
+    </property>
+    <addaction name="actionSerial_Tool"/>
+    <addaction name="actionDownload_Tool"/>
+    <addaction name="actionOS_Monitor"/>
+   </widget>
+   <widget class="QMenu" name="menu_2">
+    <property name="title">
+     <string>关于</string>
+    </property>
+    <addaction name="actionAbout"/>
+   </widget>
+   <addaction name="menu"/>
+   <addaction name="menu_2"/>
+  </widget>
+  <action name="actionSerial_Tool">
+   <property name="text">
+    <string>串口工具</string>
+   </property>
+  </action>
+  <action name="actionDownload_Tool">
+   <property name="text">
+    <string>烧录工具</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>关于软件</string>
+   </property>
+   <property name="toolTip">
+    <string>关于软件</string>
+   </property>
+  </action>
+  <action name="actionOS_Monitor">
+   <property name="text">
+    <string>OS Monitor</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

@@ -111,7 +111,7 @@ void SynestiaTool::on_connectionConnectBtn_clicked()
 
 
     if (!this->serialPort.open(QIODevice::ReadOnly)) {
-        this->ui->recvViewer->setText("Failed to open port ");
+        this->ui->recvViewer->setHtml("<span style=\"color:'red'\">Failed to open port!</span>");
     }else{
         this->ui->connectionConnectBtn->setEnabled(false);
         this->ui->connectionCloseBtn->setEnabled(true);
@@ -232,4 +232,9 @@ void SynestiaTool::onTimeout()
 void SynestiaTool::onSerialError(QSerialPort::SerialPortError serialPortError)
 {
     this->ui->recvViewer->append("error.");
+}
+
+void SynestiaTool::on_actionAbout_triggered()
+{
+    this->aboutDialog.show();
 }

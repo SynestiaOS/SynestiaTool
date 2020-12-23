@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QSerialPortInfo>
 #include <QSerialPort>
+#include <AboutDialog.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class SynestiaTool; }
@@ -34,6 +35,8 @@ private slots:
 
     void on_connectionCloseBtn_clicked();
 
+    void on_actionAbout_triggered();
+
 private:
     Ui::SynestiaTool *ui;
 
@@ -42,6 +45,8 @@ private:
     QSerialPort serialPort;
 
     bool connectionState = false;
+
+    AboutDialog aboutDialog;
 
     void initUi();
 
