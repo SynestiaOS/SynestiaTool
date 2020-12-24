@@ -118,7 +118,7 @@ void SerialTool::on_connectionConnectBtn_clicked()
     QSerialPortInfo selectedInfo =  this->serialList.at(selectederialPort);
 
 
-    if (!this->serialPort.open(QIODevice::ReadOnly)) {
+    if (!this->serialPort.open(QIODevice::ReadWrite)) {
         this->ui->recvViewer->setHtml("<p style=\"color:'red'\">Failed to open port!</p>");
     }else{
         this->ui->connectionConnectBtn->setEnabled(false);
@@ -133,10 +133,11 @@ void SerialTool::on_connectionConnectBtn_clicked()
         this->ui->stopBits->setEnabled(false);
         this->ui->connectionRefreshBtn->setEnabled(false);
 
-        SerialPortReader serialPortReader(&this->serialPort,
-                                          std::bind(&SerialTool::onDataReceived,this,std::placeholders::_1),
-                                          std::bind(&SerialTool::onSerialError,this,std::placeholders::_1),
-                                          std::bind(&SerialTool::onTimeout,this));
+        serialPortReader.init(&this->serialPort,
+                              std::bind(&SerialTool::onDataReceived,this,std::placeholders::_1),
+                              std::bind(&SerialTool::onSerialError,this,std::placeholders::_1),
+                              std::bind(&SerialTool::onTimeout,this,std::placeholders::_1));
+        serialPortReader.conn(5000);
     }
 }
 
@@ -227,17 +228,46 @@ void SerialTool::on_connectionCloseBtn_clicked()
     this->ui->stopBits->setEnabled(true);
 }
 
-void SerialTool::onDataReceived(QByteArray data)
+void SerialTool::on_commandClearBtn_clicked()
 {
-    this->ui->recvViewer->append("data recv.");
+    this->ui->command->clear();
 }
 
-void SerialTool::onTimeout()
+void SerialTool::onDataReceived(QByteArray data)
 {
-    this->ui->recvViewer->append("time out.");
+    QString str;
+    str.append("<p style=\"color:'green';padding:0;margin:0\">");
+    str.append(QString(data));
+    str.append("</p>");
+    this->ui->recvViewer->append(str);
+}
+
+void SerialTool::onTimeout(int sec)
+{
+    QString str;
+    str.append("<p style=\"color:'orange';padding:0;margin:0\">");
+    str.append(QString(sec/1000));
+    str.append(" seconds no data.");
+    str.append("</p>");
+    this->ui->recvViewer->append(str);
 }
 
 void SerialTool::onSerialError(QSerialPort::SerialPortError serialPortError)
 {
-    this->ui->recvViewer->append("error.");
+    QString str;
+    str.append("<p style=\"color:'red';padding:0;margin:0\">");
+    str.append("error");
+    str.append("</p>");
+    this->ui->recvViewer->append(str);
+}
+
+void SerialTool::on_sendBtn_clicked()
+{
+    QString text = this->ui->command->toPlainText();
+    this->serialPortReader.send(text);
+}
+
+void SerialTool::on_recvClearBtn_clicked()
+{
+    this->ui->recvViewer->clear();
 }

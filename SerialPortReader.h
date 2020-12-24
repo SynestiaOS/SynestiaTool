@@ -16,9 +16,15 @@ class SerialPortReader : public QObject
     Q_OBJECT
 
 public:
-    explicit SerialPortReader(QSerialPort *serialPort,  std::function<void(QByteArray)> onDataHandler,
-                              std::function<void(QSerialPort::SerialPortError)> onErrorHandler,
-                              std::function<void()> onTimeHandler, QObject *parent = nullptr);
+    explicit SerialPortReader(QObject *parent = nullptr);
+
+    void init(QSerialPort *serialPort,  std::function<void(QByteArray)> onDataHandler,
+              std::function<void(QSerialPort::SerialPortError)> onErrorHandler,
+              std::function<void(int)> onTimeHandler);
+
+    void conn(int sec);
+
+    void send(QString command);
 
 private slots:
     void handleReadyRead();
@@ -30,9 +36,11 @@ private:
     QByteArray readData;
     QTimer timer;
 
+    int waitTime = 0;
+
     std::function<void(QByteArray)> onDataHandler;
     std::function<void(QSerialPort::SerialPortError)> onErrorHandler;
-    std::function<void()> onTimeHandler;
+    std::function<void(int)> onTimeHandler;
 };
 
 #endif // SERIALPORTREADER_H

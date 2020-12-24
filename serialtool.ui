@@ -406,7 +406,7 @@
           <property name="title">
            <string>命令：</string>
           </property>
-          <widget class="QPushButton" name="commandSendBtn_4">
+          <widget class="QPushButton" name="sendBtn">
            <property name="geometry">
             <rect>
              <x>254</x>
@@ -419,7 +419,7 @@
             <string>发送</string>
            </property>
           </widget>
-          <widget class="QPlainTextEdit" name="plainTextEdit_2">
+          <widget class="QPlainTextEdit" name="command">
            <property name="geometry">
             <rect>
              <x>10</x>
@@ -429,7 +429,7 @@
             </rect>
            </property>
           </widget>
-          <widget class="QPushButton" name="commandSendBtn_5">
+          <widget class="QPushButton" name="commandClearBtn">
            <property name="geometry">
             <rect>
              <x>4</x>
@@ -465,7 +465,7 @@
           </rect>
          </property>
         </widget>
-        <widget class="QPushButton" name="commandSendBtn_6">
+        <widget class="QPushButton" name="recvClearBtn">
          <property name="geometry">
           <rect>
            <x>5</x>

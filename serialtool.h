@@ -4,6 +4,7 @@
 #include <QDockWidget>
 #include <QSerialPortInfo>
 #include <QSerialPort>
+#include <SerialPortReader.h>
 
 namespace Ui {
 class SerialTool;
@@ -34,12 +35,20 @@ private slots:
 
     void on_connectionCloseBtn_clicked();
 
+    void on_commandClearBtn_clicked();
+
+    void on_sendBtn_clicked();
+
+    void on_recvClearBtn_clicked();
+
 private:
     Ui::SerialTool *ui;
 
     QList<QSerialPortInfo> serialList;
 
     QSerialPort serialPort;
+
+    SerialPortReader serialPortReader;
 
     bool connectionState = false;
 
@@ -48,7 +57,7 @@ private:
     void initSerialPorts();
 
     void onDataReceived(QByteArray data);
-    void onTimeout();
+    void onTimeout(int sec);
     void onSerialError(QSerialPort::SerialPortError serialPortError);
 
     void chanageConnectButtonState();
