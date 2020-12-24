@@ -33,7 +33,6 @@ private slots:
 
 private:
     QSerialPort *serialPort = nullptr;
-    QByteArray readData;
     QTimer timer;
 
     int waitTime = 0;

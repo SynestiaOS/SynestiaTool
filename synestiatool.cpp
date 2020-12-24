@@ -3,7 +3,7 @@
 #include <QSerialPort>
 #include <QSerialPortInfo>
 #include <QTextCodec>
-#include <SerialPortReader.h>
+#include <serialportreader.h>
 #include <functional>
 
 SynestiaTool::SynestiaTool(QWidget *parent)

@@ -1,4 +1,4 @@
-#include "SerialPortReader.h"
+#include "serialportreader.h"
 
 #include <QCoreApplication>
 
@@ -32,9 +32,7 @@ void SerialPortReader::send(QString command)
 void SerialPortReader::handleReadyRead()
 {
     QByteArray dd =  serialPort->readAll();
-    readData.append(dd);
     this->onDataHandler(dd);
-
     if (!timer.isActive()){
         timer.start(this->waitTime);
     }

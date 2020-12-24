@@ -4,7 +4,7 @@
 #include <QDockWidget>
 #include <QSerialPortInfo>
 #include <QSerialPort>
-#include <SerialPortReader.h>
+#include <serialportreader.h>
 
 namespace Ui {
 class SerialTool;

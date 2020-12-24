@@ -2,7 +2,8 @@
 #include "ui_serialtool.h"
 
 #include <QMessageBox>
-#include <SerialPortReader.h>
+#include <QTextCodec>
+#include <serialportreader.h>
 
 SerialTool::SerialTool(QWidget *parent) :
     QDockWidget(parent),
@@ -243,7 +244,8 @@ void SerialTool::onDataReceived(QByteArray data)
 {
     QString str;
     str.append("<p style=\"color:'green';padding:0;margin:0\">");
-    str.append(QString(data));
+    QTextCodec *tc = QTextCodec::codecForName("UTF8");
+    str.append(tc->toUnicode(data));
     str.append("</p>");
     this->ui->recvViewer->append(str);
 }
