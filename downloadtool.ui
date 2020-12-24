@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>OsMonitor</class>
- <widget class="QWidget" name="OsMonitor">
+ <class>DownloadTool</class>
+ <widget class="QWidget" name="DownloadTool">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>575</width>
-    <height>437</height>
+    <width>608</width>
+    <height>446</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -17,19 +17,19 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>OS 监控</string>
+   <string>烧写工具</string>
   </property>
   <widget class="QGroupBox" name="groupBox">
    <property name="geometry">
     <rect>
      <x>9</x>
      <y>9</y>
-     <width>561</width>
-     <height>421</height>
+     <width>591</width>
+     <height>431</height>
     </rect>
    </property>
    <property name="title">
-    <string>OS Monitor</string>
+    <string>镜像烧写</string>
    </property>
   </widget>
  </widget>

@@ -1,14 +1,14 @@
 #include "osmonitor.h"
 #include "ui_osmonitor.h"
 
-OSMonitor::OSMonitor(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::OSMonitor)
+OsMonitor::OsMonitor(QWidget *parent) :
+    QDockWidget(parent),
+    ui(new Ui::OsMonitor)
 {
     ui->setupUi(this);
 }
 
-OSMonitor::~OSMonitor()
+OsMonitor::~OsMonitor()
 {
     delete ui;
 }

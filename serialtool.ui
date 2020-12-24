@@ -10,6 +10,12 @@
     <height>644</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>240</width>
+    <height>160</height>
+   </size>
+  </property>
   <property name="windowTitle">
    <string>串口工具</string>
   </property>

@@ -28,7 +28,20 @@ void SynestiaTool::on_actionAbout_triggered()
 void SynestiaTool::on_actionSerial_Tool_triggered()
 {
     this->ui->welcomePanel->setVisible(false);
-    this->serialTool.size().setWidth(this->ui->centralwidget->size().width());
     this->serialTool.setParent(this);
     this->serialTool.show();
+}
+
+void SynestiaTool::on_actionDownload_Tool_triggered()
+{
+    this->ui->welcomePanel->setVisible(false);
+    this->downloadTool.setParent(this);
+    this->downloadTool.show();
+}
+
+void SynestiaTool::on_actionOS_Monitor_triggered()
+{
+    this->ui->welcomePanel->setVisible(false);
+    this->osMonitor.setParent(this);
+    this->osMonitor.show();
 }

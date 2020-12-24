@@ -1,22 +1,23 @@
 #ifndef OSMONITOR_H
 #define OSMONITOR_H
 
-#include <QMainWindow>
+#include <QDockWidget>
+#include <QWidget>
 
 namespace Ui {
-class OSMonitor;
+class OsMonitor;
 }
 
-class OSMonitor : public QMainWindow
+class OsMonitor : public QDockWidget
 {
     Q_OBJECT
 
 public:
-    explicit OSMonitor(QWidget *parent = nullptr);
-    ~OSMonitor();
+    explicit OsMonitor(QWidget *parent = nullptr);
+    ~OsMonitor();
 
 private:
-    Ui::OSMonitor *ui;
+    Ui::OsMonitor *ui;
 };
 
 #endif // OSMONITOR_H

@@ -12,6 +12,7 @@ CONFIG += c++11
 SOURCES += \
     SerialPortReader.cpp \
     aboutdialog.cpp \
+    downloadtool.cpp \
     main.cpp \
     osmonitor.cpp \
     serialtool.cpp \
@@ -20,12 +21,14 @@ SOURCES += \
 HEADERS += \
     SerialPortReader.h \
     aboutdialog.h \
+    downloadtool.h \
     osmonitor.h \
     serialtool.h \
     synestiatool.h
 
 FORMS += \
     aboutdialog.ui \
+    downloadtool.ui \
     osmonitor.ui \
     serialtool.ui \
     synestiatool.ui

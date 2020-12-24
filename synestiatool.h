@@ -1,9 +1,12 @@
 #ifndef SYNESTIATOOL_H
 #define SYNESTIATOOL_H
 
-#include <AboutDialog.h>
+#include "osmonitor.h"
+
+#include <aboutdialog.h>
+#include <downloadtool.h>
 #include <QMainWindow>
-#include <SerialTool.h>
+#include <serialtool.h>
 
 
 QT_BEGIN_NAMESPACE
@@ -23,10 +26,16 @@ private slots:
 
     void on_actionSerial_Tool_triggered();
 
+    void on_actionDownload_Tool_triggered();
+
+    void on_actionOS_Monitor_triggered();
+
 private:
     Ui::SynestiaTool *ui;
 
     AboutDialog aboutDialog;
     SerialTool serialTool;
+    DownloadTool downloadTool;
+    OsMonitor osMonitor;
 };
 #endif // SYNESTIATOOL_H
