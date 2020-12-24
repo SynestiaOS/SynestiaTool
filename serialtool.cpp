@@ -57,6 +57,8 @@ void SerialTool::initUi()
     ui->connectionState->setChecked(false);
     ui->connectionState->setEnabled(false);
 
+    this->ui->sendBtn->setEnabled(false);
+
     this->initSerialPorts();
 }
 
@@ -138,6 +140,8 @@ void SerialTool::on_connectionConnectBtn_clicked()
                               std::bind(&SerialTool::onSerialError,this,std::placeholders::_1),
                               std::bind(&SerialTool::onTimeout,this,std::placeholders::_1));
         serialPortReader.conn(5000);
+
+        this->ui->sendBtn->setEnabled(true);
     }
 }
 
@@ -226,6 +230,8 @@ void SerialTool::on_connectionCloseBtn_clicked()
     this->ui->dataBits->setEnabled(true);
     this->ui->checkBits->setEnabled(true);
     this->ui->stopBits->setEnabled(true);
+
+    this->ui->sendBtn->setEnabled(false);
 }
 
 void SerialTool::on_commandClearBtn_clicked()
