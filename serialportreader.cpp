@@ -17,6 +17,7 @@ void SerialPortReader::init(QSerialPort *serialPort, std::function<void (QByteAr
 
 void SerialPortReader::conn(int sec)
 {
+    this->serialPort->setReadBufferSize(1024);
     connect(this->serialPort, &QSerialPort::readyRead, this, &SerialPortReader::handleReadyRead);
     connect(this->serialPort, &QSerialPort::errorOccurred, this, &SerialPortReader::handleError);
     connect(&this->timer, &QTimer::timeout, this, &SerialPortReader::handleTimeout);

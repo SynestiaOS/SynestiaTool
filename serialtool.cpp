@@ -22,6 +22,7 @@ SerialTool::~SerialTool()
 
 void SerialTool::initUi()
 {
+    ui->buadList->addItem("115200");
     ui->buadList->addItem("1200");
     ui->buadList->addItem("2400");
     ui->buadList->addItem("4800");
@@ -29,13 +30,14 @@ void SerialTool::initUi()
     ui->buadList->addItem("19200");
     ui->buadList->addItem("38400");
     ui->buadList->addItem("57600");
-    ui->buadList->addItem("115200");
 
 
+
+    ui->dataBits->addItem("8");
     ui->dataBits->addItem("5");
     ui->dataBits->addItem("6");
     ui->dataBits->addItem("7");
-    ui->dataBits->addItem("8");
+
 
     ui->stopBits->addItem("OneStop");
     ui->stopBits->addItem("OneAndHalfStop");
@@ -47,13 +49,7 @@ void SerialTool::initUi()
     ui->checkBits->addItem("SpaceParity");
     ui->checkBits->addItem("MarkParity");
 
-    ui->serialCheckBox->setEnabled(false);
-    ui->buadCheckBox->setEnabled(false);
-    ui->dataCheckBox->setEnabled(false);
-    ui->chechCheckBox->setEnabled(false);
-    ui->stopCheckBox->setEnabled(false);
-
-    ui->connectionConnectBtn->setEnabled(false);
+    ui->connectionConnectBtn->setEnabled(true);
     ui->connectionCloseBtn->setEnabled(false);
     ui->connectionState->setChecked(false);
     ui->connectionState->setEnabled(false);
@@ -61,6 +57,12 @@ void SerialTool::initUi()
     this->ui->sendBtn->setEnabled(false);
 
     this->initSerialPorts();
+
+    this->serialPort.setPortName(this->serialList.at(0).portName());
+    this->serialPort.setDataBits((QSerialPort::DataBits::Data8));
+    this->serialPort.setStopBits((QSerialPort::StopBits::OneStop));
+    this->serialPort.setParity((QSerialPort::Parity::NoParity));
+    this->serialPort.setBaudRate(115200);
 }
 
 void SerialTool::initSerialPorts()
@@ -81,18 +83,6 @@ void SerialTool::initSerialPorts()
     ui->serialPorts->addItems(serials);
 }
 
-void SerialTool::chanageConnectButtonState()
-{
-    if(ui->serialCheckBox->checkState()==Qt::CheckState::Checked &&
-            ui->buadCheckBox->checkState()==Qt::CheckState::Checked&&
-            ui->dataCheckBox->checkState()==Qt::CheckState::Checked&&
-            ui->chechCheckBox->checkState()==Qt::CheckState::Checked&&
-            ui->stopCheckBox->checkState()==Qt::CheckState::Checked &&
-            this->connectionState == false){
-        ui->connectionConnectBtn->setEnabled(true);
-    }
-}
-
 
 void SerialTool::on_connectionRefreshBtn_clicked()
 {
@@ -110,8 +100,6 @@ void SerialTool::on_serialPorts_activated(int index)
     this->ui->desc->setText(selectedInfo.description());
     this->ui->manfactor->setText(selectedInfo.manufacturer());
     this->ui->serialNumber->setText(selectedInfo.serialNumber());
-
-    this->ui->serialCheckBox->setCheckState(Qt::CheckState::Checked);
 }
 
 void SerialTool::on_connectionConnectBtn_clicked()
@@ -149,8 +137,6 @@ void SerialTool::on_connectionConnectBtn_clicked()
 void SerialTool::on_buadList_activated(const QString &arg1)
 {
     this->serialPort.setBaudRate(arg1.toInt());
-    this->ui->buadCheckBox->setCheckState(Qt::CheckState::Checked);
-    this->chanageConnectButtonState();
 }
 
 void SerialTool::on_dataBits_activated(int index)
@@ -169,9 +155,6 @@ void SerialTool::on_dataBits_activated(int index)
         this->serialPort.setDataBits((QSerialPort::DataBits::Data8));
         break;
     }
-
-    this->ui->dataCheckBox->setCheckState(Qt::CheckState::Checked);
-    this->chanageConnectButtonState();
 }
 
 void SerialTool::on_checkBits_activated(int index)
@@ -193,9 +176,6 @@ void SerialTool::on_checkBits_activated(int index)
         this->serialPort.setParity((QSerialPort::Parity::MarkParity));
         break;
     }
-
-    this->ui->chechCheckBox->setCheckState(Qt::CheckState::Checked);
-    this->chanageConnectButtonState();
 }
 
 
@@ -212,9 +192,6 @@ void SerialTool::on_stopBits_activated(int index)
         this->serialPort.setStopBits((QSerialPort::StopBits::TwoStop));
         break;
     }
-
-    this->ui->stopCheckBox->setCheckState(Qt::CheckState::Checked);
-    this->chanageConnectButtonState();
 }
 
 void SerialTool::on_connectionCloseBtn_clicked()
@@ -242,31 +219,23 @@ void SerialTool::on_commandClearBtn_clicked()
 
 void SerialTool::onDataReceived(QByteArray data)
 {
-    QString str;
-    str.append("<p style=\"color:'green';padding:0;margin:0\">");
     QTextCodec *tc = QTextCodec::codecForName("UTF8");
-    str.append(tc->toUnicode(data));
-    str.append("</p>");
-    this->ui->recvViewer->append(str);
+    QTextCursor cursor = this->ui->recvViewer->textCursor();
+    cursor.movePosition(QTextCursor::End);
+    cursor.insertText(tc->toUnicode(data));
 }
 
 void SerialTool::onTimeout(int sec)
 {
     QString str;
-    str.append("<p style=\"color:'orange';padding:0;margin:0\">");
     str.append(QString(sec/1000));
     str.append(" seconds no data.");
-    str.append("</p>");
     this->ui->recvViewer->append(str);
 }
 
 void SerialTool::onSerialError(QSerialPort::SerialPortError serialPortError)
 {
-    QString str;
-    str.append("<p style=\"color:'red';padding:0;margin:0\">");
-    str.append("error");
-    str.append("</p>");
-    this->ui->recvViewer->append(str);
+    this->ui->recvViewer->append("error");
 }
 
 void SerialTool::on_sendBtn_clicked()
